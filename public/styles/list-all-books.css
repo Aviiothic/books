@@ -73,7 +73,7 @@ h1 {
 
 .price {
     font-weight: bold;
-    color: #27ae60;
+    color: #27ae60 !important;  /* so others don't oveerride */
     font-size: 1.2em;
 }
 
