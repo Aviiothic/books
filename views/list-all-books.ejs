@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <link rel="stylesheet" href="/styles/list-all-books.css">
+</head>
+<body>
+    <div class="header-container">
+        <input type="text" id="searchBox" placeholder="Search books...">
+        <h1>List Of Books</h1>
+        <button class="add-book-btn">Add New Book</button>
+    </div>
+    
+    <div class="container" id="bookList">
+        <% books.forEach(book => { %>
+            <div class="card" data-title="<%= book.title.toLowerCase() %>">
+                <h2><%= book.title %></h2>
+                <p><strong>Author:</strong> <%= book.author %></p>
+                <p><strong>Genre:</strong> <%= book.genre %></p>
+                <p class="price"><strong>Price:</strong> ₹<%= book.price %></p>
+
+                <div class="buttons">
+                    <a href="/books/<%= book.id %>/edit" class="btn edit-btn">Edit</a>
+                    <form action="/books/<%= book.id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="btn delete-btn">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+    
+    <script>
+        document.getElementById('searchBox').addEventListener('input', function() {
+            let filter = this.value.toLowerCase();
+            let books = document.querySelectorAll('.card');
+            books.forEach(book => {
+                let title = book.getAttribute('data-title');
+                book.style.display = title.includes(filter) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
